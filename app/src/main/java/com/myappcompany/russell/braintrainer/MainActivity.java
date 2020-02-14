@@ -1,6 +1,7 @@
 package com.myappcompany.russell.braintrainer;
 
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     TextView sumTextView;
     TextView timerTextView;
     Button playAgainButton;
+    ConstraintLayout gameLayout;
 
     public void playAgain(View view){
         score = 0;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         scoreTextView.setText(Integer.toString(score) + "/" + Integer.toString(numberOfQuestions));
         newQuestion();
         playAgainButton.setVisibility(View.INVISIBLE);
+        resultTextView.setText("");
+        clickable(true);
         new CountDownTimer(5100, 1000){
 
             @Override
@@ -46,8 +50,24 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 resultTextView.setText("Done!");
                 playAgainButton.setVisibility(View.VISIBLE);
+                clickable(false);
             }
         }.start();
+
+    }
+
+    public void clickable(boolean isClickable) {
+        if(!isClickable) {
+            button0.setClickable(false);
+            button1.setClickable(false);
+            button2.setClickable(false);
+            button3.setClickable(false);
+        } else {
+            button0.setClickable(true);
+            button1.setClickable(true);
+            button2.setClickable(true);
+            button3.setClickable(true);
+        }
 
     }
 
@@ -65,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void start(View view){
         goButton.setVisibility(View.INVISIBLE);
+        gameLayout.setVisibility(View.VISIBLE);
+        playAgain(findViewById(R.id.timerTextView));
     }
 
     public void newQuestion(){
@@ -112,9 +134,13 @@ public class MainActivity extends AppCompatActivity {
         goButton = findViewById(R.id.goButton);
         timerTextView = findViewById(R.id.timerTextView);
         playAgainButton = findViewById(R.id.playAgainButton);
+        gameLayout = findViewById(R.id.gameLayout);
 
         newQuestion();
 
-        playAgain(findViewById(R.id.timerTextView));
+        goButton.setVisibility(View.VISIBLE);
+        gameLayout.setVisibility(View.INVISIBLE);
+
+
     }
 }
