@@ -2,6 +2,7 @@ package com.myappcompany.russell.braintrainer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,9 +12,25 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    int locationOfCorrectAnswer;
     Button goButton;
     ArrayList<Integer> answers = new ArrayList<Integer>();
+    TextView resultTextView;
+    int score = 0;
+    int numberOfQuestions = 0;
+    TextView scoreTextView;
 
+    public void chooseAnswer(View view){
+        if(Integer.toString(locationOfCorrectAnswer).equals(view.getTag().toString())){
+            resultTextView.setText("Correct!");
+            score++;
+        } else {
+            resultTextView.setText("Wrong = (");
+        }
+        numberOfQuestions++;
+        scoreTextView.setText(Integer.toString(score) + "/" + Integer.toString(numberOfQuestions));
+
+    }
 
     public void start(View view){
         goButton.setVisibility(View.INVISIBLE);
@@ -29,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         Button button1 = findViewById(R.id.button1);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
+        resultTextView = findViewById(R.id.resultTextView);
+        scoreTextView = findViewById(R.id.scoreTextView);
         goButton = findViewById(R.id.goButton);
 
         Random rand = new Random();
@@ -38,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         sumTextView.setText(Integer.toString(a) + " + " + Integer.toString(b));
 
-        int locationOfCorrectAnswer = rand.nextInt(4);
+        locationOfCorrectAnswer = rand.nextInt(4);
 
         for (int i = 0; i < 4; i++){
             if( i == locationOfCorrectAnswer){
