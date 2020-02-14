@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         playAgainButton.setVisibility(View.INVISIBLE);
         resultTextView.setText("");
         clickable(true);
-        new CountDownTimer(5100, 1000){
+        new CountDownTimer(30100, 1000){
 
             @Override
             public void onTick(long l) {
